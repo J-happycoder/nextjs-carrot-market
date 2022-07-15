@@ -1,5 +1,5 @@
-import { ReactElement } from "react";
 import Head from "next/head";
+import { ReactElement } from "react";
 import Navigation from "./Navigation";
 
 type layoutProps = {
@@ -12,10 +12,6 @@ const Layout = ({ title, children }: layoutProps) => {
     <>
       <Head>
         <title>{title}</title>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        />
       </Head>
       <Navigation />
       {children}
