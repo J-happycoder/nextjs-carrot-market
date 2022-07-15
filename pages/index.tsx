@@ -1,11 +1,27 @@
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import className from "../libs/createClassName";
 
+type Product = {
+  name: string;
+  likes: number;
+  sold: Boolean;
+};
+
+type ProductJson = {
+  products: Product[];
+};
+
 const Home: NextPage = () => {
-  const products = [10, 11, 13, 14, 7, 4, 6, 1, 2, 3, 12].map((number) => {
-    return { name: `iPhone ${number} Pro`, likes: number, sold: number === 11 };
-  });
+  const [products, setProducts] = useState<Product[]>([]);
+  const loadProducts = async () => {
+    const { products }: ProductJson = await (await fetch("/api/products")).json();
+    setProducts(products);
+  };
+  useEffect(() => {
+    loadProducts();
+  }, []);
   return (
     <Layout title="Home">
       <>
