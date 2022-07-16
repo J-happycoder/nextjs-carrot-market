@@ -5,6 +5,7 @@ import className from "../libs/createClassName";
 
 type Product = {
   name: string;
+  id: number;
   likes: number;
   sold: Boolean;
 };
@@ -43,7 +44,9 @@ const Home: NextPage = () => {
             <div key={product.likes} className="flex flex-row mb-5">
               <div className="w-28 h-28 bg-gray-300 rounded-md"></div>
               <div className="ml-3">
-                <h4 className="text-sm">{product.name}</h4>
+                <a href={`/products/${product.id}`} className="text-sm block">
+                  {product.name}
+                </a>
                 <span className="text-sm text-gray-400">descriptions...........</span>
               </div>
             </div>

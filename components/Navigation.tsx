@@ -12,7 +12,7 @@ const Navigation = () => {
         onClick={handleMenuClick}
         className={className(
           "fa-solid fa-bars",
-          "text-lg text-gray-500 cursor-pointer fixed top-0 right-0 m-auto px-5 py-3 z-10 ml-4"
+          "text-lg text-gray-500 cursor-pointer fixed top-0 right-0 m-auto px-5 py-3.5 z-10 ml-4"
         )}
       />
       <div

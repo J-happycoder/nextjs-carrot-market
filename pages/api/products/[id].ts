@@ -5,7 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // Get the Product
   const product = {
     name: `iPhone 13 Pro`,
-    likes: 10,
+    likes: 1,
     sold: true,
   };
   return res.status(200).json({ product });
