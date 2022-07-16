@@ -1,16 +1,16 @@
 import type { NextPage } from "next";
 import Layout from "../components/Layout";
 
-type Product = {
+interface Product {
   name: string;
   id: number;
   likes: number;
   sold: boolean;
-};
+}
 
-type ProductJson = {
+interface ProductJson {
   products: Product[];
-};
+}
 
 const Home: NextPage = () => {
   const products = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => ({

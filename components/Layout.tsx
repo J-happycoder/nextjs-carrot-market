@@ -2,10 +2,10 @@ import Head from "next/head";
 import { ReactElement } from "react";
 import Navigation from "./Navigation";
 
-type layoutProps = {
+interface layoutProps {
   title: string;
   children: ReactElement;
-};
+}
 
 const Layout = ({ title, children }: layoutProps) => {
   return (

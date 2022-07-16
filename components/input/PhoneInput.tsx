@@ -1,8 +1,11 @@
+import type { UseFormRegisterReturn } from "react-hook-form";
+
 interface PhoneInputProps {
   label: string;
+  register: UseFormRegisterReturn;
 }
 
-const PhoneInput = ({ label }: PhoneInputProps) => {
+const PhoneInput = ({ label, register }: PhoneInputProps) => {
   return (
     <div className="space-y-1">
       <label className="text-sm text-gray-500">{label}</label>
@@ -14,6 +17,7 @@ const PhoneInput = ({ label }: PhoneInputProps) => {
           className="appearance-none w-full border border-gray-300 rounded-r-md shadow-sm focus:border-orange-500 focus:ring-orange-500 text-sm"
           type="number"
           required
+          {...register}
         />
       </div>
     </div>

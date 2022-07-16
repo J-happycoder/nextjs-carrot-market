@@ -1,7 +1,7 @@
-import ItemImageInput from "../../components/ItemImageInput";
+import ItemImageInput from "../../components/input/ItemImageInput";
 import Layout from "../../components/Layout";
-import PriceInput from "../../components/PriceInput";
-import TextInput from "../../components/TextInput";
+import PriceInput from "../../components/input/PriceInput";
+import TextInput from "../../components/input/TextInput";
 
 const Upload = () => {
   return (
@@ -9,7 +9,7 @@ const Upload = () => {
       <div className="px-5 mb-10">
         <form className="flex flex-col max-w-3xl mx-auto mt-20 space-y-3">
           <ItemImageInput label="Change" />
-          <TextInput label="Item Name" required />
+          <TextInput label="Item Name" />
           <PriceInput label="Price" />
           <div className="flex flex-col">
             <label className="text-sm text-gray-500 mb-1">Description</label>

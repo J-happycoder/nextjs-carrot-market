@@ -1,10 +1,10 @@
 import Layout from "../../components/Layout";
 
-type Product = {
+interface Product {
   name: string;
   likes: number;
   sold: boolean;
-};
+}
 
 const Product = () => {
   const product = { name: "iPhone 13 Pro", likes: 1, sold: true };
