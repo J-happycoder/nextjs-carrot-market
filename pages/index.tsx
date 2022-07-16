@@ -39,7 +39,7 @@ const Home: NextPage = () => {
             <div key={product.likes} className="flex flex-row">
               <div className="w-28 h-28 bg-gray-300 rounded-md"></div>
               <div className="ml-3">
-                <a href="/products/1" className="text-sm block">
+                <a href="/items/1" className="text-sm block">
                   {product.name}
                 </a>
                 <span className="text-sm text-gray-400">descriptions...........</span>
