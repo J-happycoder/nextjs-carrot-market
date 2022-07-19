@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Input from "../components/Input";
 import Layout from "../components/Layout";
 
 interface Product {
@@ -22,17 +23,9 @@ const Home: NextPage = () => {
     <Layout title="Home">
       <>
         <form className="backdrop-blur-sm flex flex-row justify-center px-14 py-2 border-b border-gray-300 sticky top-0 shadow-sm">
-          <input
-            className="appearance-none w-full border border-gray-300 rounded-l-md shadow-sm focus:border-orange-500 focus:ring-orange-500 placeholder-gray-400 text-sm max-w-xl z-10"
-            type="text"
-            placeholder="Search for a product."
-          />
-          <button
-            className="px-2 text-sm text-gray-400 bg-white hover:bg-gray-50 border border-gray-300 border-l-0 rounded-r-md focus:outline-none shadow-sm"
-            type="submit"
-          >
-            search
-          </button>
+          <div className="max-w-xl w-full">
+            <Input type="text" placeholder="Search for a product." submitText="search" />
+          </div>
         </form>
         <div className="mt-16 flex flex-col max-w-2xl mx-auto px-5 space-y-5 mb-10">
           {products.map((product) => (
@@ -65,12 +58,6 @@ const Home: NextPage = () => {
                 ></path>
               </svg>
             </button>
-            {/* <i
-              className={className(
-                "fa-solid fa-plus",
-                "text-white text-xl w-12 h-12 bg-orange-500 rounded-full flex justify-center items-center cursor-pointer shadow-md"
-              )}
-            ></i> */}
           </div>
         </div>
       </>

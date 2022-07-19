@@ -1,7 +1,6 @@
-import ItemImageInput from "../../components/input/ItemImageInput";
+import ItemImageInput from "../../components/ItemImageInput";
 import Layout from "../../components/Layout";
-import PriceInput from "../../components/input/PriceInput";
-import TextInput from "../../components/input/TextInput";
+import Input from "../../components/Input";
 
 const Upload = () => {
   return (
@@ -9,8 +8,8 @@ const Upload = () => {
       <div className="px-5 mb-10">
         <form className="flex flex-col max-w-3xl mx-auto mt-20 space-y-3">
           <ItemImageInput label="Change" />
-          <TextInput label="Item Name" />
-          <PriceInput label="Price" />
+          <Input label={{ top: "Item name" }} type="text" />
+          <Input label={{ top: "Price", left: "$", right: "USD" }} type="number" />
           <div className="flex flex-col">
             <label className="text-sm text-gray-500 mb-1">Description</label>
             <textarea className="resize-none h-96 border border-gray-300 rounded-md appearance-none shadow-sm focus:border-orange-500 focus:ring-orange-500 text-sm z-10" />
