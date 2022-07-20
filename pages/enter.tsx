@@ -12,43 +12,43 @@ interface EnterFormValues {
 }
 
 const Enter = () => {
-  const { register, handleSubmit, setValue } = useForm<EnterFormValues>({
-    defaultValues: { email: "", phone: "", oneTimePassword: "" },
-  });
+  const { register, handleSubmit, setValue } = useForm<EnterFormValues>();
   const [enterMethod, setEnterMethod] = useState<"email" | "phone">("email");
-  const [oneTimePasswordSended, setOneTimePasswordSended] = useState<boolean>(true);
+  const [oneTimePasswordSended, setOneTimePasswordSended] = useState<boolean>(false);
   const [loginLinkSended, setLoginLinkSended] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  const initPhoneEnter = () => {
+    setValue("phone", "");
+    setValue("oneTimePassword", "");
+  };
+
+  const initEmailEnter = () => setValue("email", "");
+
   const handleEmailButtonClick = () => {
     setErrorMessage("");
+    initPhoneEnter();
     setEnterMethod("email");
   };
   const handlePhoneButtonClick = () => {
     setErrorMessage("");
+    initEmailEnter();
     setEnterMethod("phone");
   };
 
   const resend = () => {
-    setValue("oneTimePassword", "");
+    initPhoneEnter();
     setErrorMessage("");
     setOneTimePasswordSended(false);
   };
 
   const onValid = async (data: EnterFormValues) => {
-    const { email, phone, oneTimePassword } = data;
-    if (enterMethod === "email") {
-      const response = await fetch("/api/enter/email", {
-        method: "POST",
-        body: JSON.stringify({ email }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(response);
-    } else {
-      // fetch("", { method: "POST", body: JSON.stringify({ phone, oneTimePassword }) });
-    }
+    const enterData = data;
+    await fetch("/api/enter", {
+      method: "POST",
+      body: JSON.stringify(enterData),
+      headers: { "Content-Type": "application/json" },
+    });
   };
   const onInvalid: SubmitErrorHandler<EnterFormValues> = (errors) => {
     if (errors.email?.type === "required") {
@@ -107,7 +107,7 @@ const Enter = () => {
               <Input
                 registerProps={register("phone", { required: true })}
                 type="number"
-                label={{ top: "Phone number" }}
+                label={{ top: "Phone number", left: "+82" }}
               />
             ))}
           {errorMessage !== "" && (
