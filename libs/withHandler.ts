@@ -7,6 +7,8 @@ const withHandler = (
   return async function (req: NextApiRequest, res: NextApiResponse) {
     if (req.method === method) {
       handler(req, res);
+    } else {
+      return res.status(400).end();
     }
   };
 };
