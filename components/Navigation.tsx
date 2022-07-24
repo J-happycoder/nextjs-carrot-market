@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import className from "../libs/createClassName";
+import className from "../libs/client/createClassName";
 
 const Navigation = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);

@@ -21,4 +21,6 @@ model Token {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
   token  String
+
+  @@unique(fields: [userId, token], name: "userToken")
 }

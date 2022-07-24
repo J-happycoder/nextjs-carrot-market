@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import type { UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
-import className from "../libs/createClassName";
+import className from "../libs/client/createClassName";
 
 interface EnterFormValues {
   email?: string;
@@ -13,7 +13,7 @@ interface InputProps {
   label?: { top?: string; right?: string; left?: string };
   buttonText?: string;
   submitText?: string;
-  type: "text" | "email" | "number";
+  type: "text" | "email" | "number" | "password";
   required?: boolean;
   registerProps?: UseFormRegisterReturn;
   onButtonClick?: MouseEventHandler<HTMLSpanElement>;
