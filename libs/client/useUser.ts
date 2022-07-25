@@ -9,17 +9,24 @@ interface UseUserProps {
   userId?: number;
 }
 
+interface SWRUserData {
+  user: User;
+}
+
 export default function useUser({ routeType, redirectTo, userId }: UseUserProps) {
-  const { data: user, error, mutate: mutateUser } = useSWR<User>("/api/users/current-user");
+  const { data, error, mutate: mutateUser } = useSWR<SWRUserData>("/api/users/current-user");
   const router = useRouter();
   useEffect(() => {
+    if (!data) {
+      return;
+    }
     const forbidden =
-      (routeType === "public" && user) ||
-      (routeType === "entered" && !user) ||
-      (routeType === "private" && user?.id !== userId);
+      (routeType === "public" && data.user) ||
+      (routeType === "entered" && !data.user) ||
+      (routeType === "private" && data.user?.id !== userId);
     if (forbidden && redirectTo) {
       router.push(redirectTo);
     }
-  }, [user, routeType, redirectTo]);
-  return { user, mutateUser };
+  }, [data, routeType, redirectTo]);
+  return { user: data?.user, mutateUser };
 }
