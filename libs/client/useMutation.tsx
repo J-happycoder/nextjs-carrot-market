@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function useMutation<Body>(
   url: string
-): [(data: Body) => void, { data: any; loading: boolean; error: any }] {
+): [(data: Body) => Promise<void>, { data: any; loading: boolean; error: any }] {
   const [data, setData] = useState<any>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(undefined);

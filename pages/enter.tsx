@@ -35,14 +35,12 @@ const Enter = () => {
     setEnterMethod("phone");
   };
 
-  const onValid = (data: EnterForm) => {
-    enter(data);
-  };
+  const onValid = (data: EnterForm) => enter(data);
 
   const onTokenValid = async (data: TokenForm) => {
     const { email, phone } = getValues();
     const { token } = data;
-    confirm({ email, phone, token });
+    await confirm({ email, phone, token });
     mutateUser();
   };
 

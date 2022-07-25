@@ -14,7 +14,7 @@ interface SWRUserData {
 }
 
 export default function useUser({ routeType, redirectTo, userId }: UseUserProps) {
-  const { data, error, mutate: mutateUser } = useSWR<SWRUserData>("/api/users/current-user");
+  const { data, error, mutate: mutateUser } = useSWR<SWRUserData>("/api/users/current");
   const router = useRouter();
   useEffect(() => {
     if (!data) {
