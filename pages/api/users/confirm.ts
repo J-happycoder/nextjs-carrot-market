@@ -1,10 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../libs/server/prismaClient";
-import withSessionHandler from "../../../libs/server/withSessionHandler";
-import withHandler from "../../../libs/server/withSessionHandler";
-import withSession from "../../../libs/server/withSession";
+import prisma from "@libs/server/prismaClient";
+import withSessionHandler from "@libs/server/withSessionHandler";
 
-const confirm = async (req: NextApiRequest, res: NextApiResponse) => {
+const confirmHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { token, email, phone } = req.body;
   if (!email && !phone) {
     return res.status(400).json({ ok: false });
@@ -24,4 +22,4 @@ const confirm = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json({ ok: false });
 };
 
-export default withSessionHandler(confirm, { method: "POST", routeType: "public" });
+export default withSessionHandler(confirmHandler, { method: "POST", routeType: "public" });

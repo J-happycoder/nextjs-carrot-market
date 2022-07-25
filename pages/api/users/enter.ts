@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../libs/server/prismaClient";
+import prisma from "@libs/server/prismaClient";
 import mailClient from "@sendgrid/mail";
 import twilio from "twilio";
-import withSessionHandler from "../../../libs/server/withSessionHandler";
+import withSessionHandler from "@libs/server/withSessionHandler";
 
 const smsClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 

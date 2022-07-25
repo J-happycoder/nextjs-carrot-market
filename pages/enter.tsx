@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Layout from "../components/Layout";
-import className from "../libs/client/createClassName";
+import Layout from "@components/Layout";
+import className from "@libs/client/createClassName";
 import { useForm } from "react-hook-form";
-import Input from "../components/Input";
-import Button from "../components/Button";
-import useMutation from "../libs/client/useMutation";
-import useUser from "../libs/client/useUser";
+import Input from "@components/Input";
+import Button from "@components/Button";
+import useMutation from "@libs/client/useMutation";
+import useUser from "@libs/client/useUser";
 
 interface EnterForm {
   email?: string;
@@ -47,7 +47,7 @@ const Enter = () => {
   return (
     <Layout title="Enter">
       <div className="mt-20 px-5">
-        <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
+        <h1 className="text-3xl font-bold text-center">Enter to Carrot</h1>
         {enterData?.ok ? (
           <>
             <form

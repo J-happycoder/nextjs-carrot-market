@@ -1,6 +1,6 @@
 import { text } from "stream/consumers";
-import Layout from "../../components/Layout";
-import className from "../../libs/client/createClassName";
+import Layout from "@components/Layout";
+import className from "@libs/client/createClassName";
 
 const Chat = () => {
   const messages = [

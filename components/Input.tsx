@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import type { UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
-import className from "../libs/client/createClassName";
+import className from "@libs/client/createClassName";
 
 interface EnterFormValues {
   email?: string;

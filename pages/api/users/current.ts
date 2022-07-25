@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../libs/server/prismaClient";
-import withSessionHandler from "../../../libs/server/withSessionHandler";
+import prisma from "@libs/server/prismaClient";
+import withSessionHandler from "@libs/server/withSessionHandler";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const currentUserHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId } = req.session;
   let user;
   if (userId) {
@@ -11,4 +11,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json({ user });
 };
 
-export default withSessionHandler(handler, { method: "GET" });
+export default withSessionHandler(currentUserHandler, { method: "GET" });

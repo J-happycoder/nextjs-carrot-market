@@ -1,4 +1,4 @@
-import Layout from "../../components/Layout";
+import Layout from "@components/Layout";
 
 const Profile = () => {
   const products = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => ({
