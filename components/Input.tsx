@@ -25,6 +25,7 @@ const Input = ({
   buttonText,
   submitText,
   type,
+  required,
   registerProps,
   onButtonClick,
 }: InputProps) => {
@@ -45,6 +46,7 @@ const Input = ({
           )}
           placeholder={placeholder}
           type={type}
+          required={required}
           {...registerProps}
         />
         {label?.right && (

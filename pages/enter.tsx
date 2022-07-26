@@ -59,6 +59,9 @@ const Enter = () => {
                 type="text"
                 label={{ top: "Your One-Time Password" }}
               />
+              {confirmData && !confirmData.ok && (
+                <span className="mx-auto text-sm text-orange-600 mt-1">Your code is wrong.</span>
+              )}
               <Button text={confirmLoading ? "Loading" : "Confirm Password"} />
             </form>
           </>
@@ -88,6 +91,7 @@ const Enter = () => {
               {enterMethod === "email" && (
                 <Input
                   type="email"
+                  required
                   label={{ top: "Email address" }}
                   registerProps={register("email")}
                 />
@@ -96,6 +100,7 @@ const Enter = () => {
                 <Input
                   registerProps={register("phone")}
                   type="number"
+                  required
                   label={{ top: "Phone number", left: "+82" }}
                 />
               )}

@@ -63,19 +63,21 @@ const Navigation = () => {
         </div>
         <div className="flex flex-col w-full mt-10 mb-16 h-full">
           <nav className="flex flex-col justify-between h-full">
-            <ul className="text-sm flex flex-col space-y-1">
+            <ul className="text-sm flex flex-col">
               <Menu href="/" text="Home" />
               {!user && <Menu href="/enter" text="Enter" />}
               {user && <Menu href="/users/1" text="My Profile" />}
               {user && <Menu href="/items/upload" text="Upload" />}
               {user && <Menu href="/users/update" text="Update Profile" />}
             </ul>
-            <button
-              onClick={logout}
-              className="mx-12 py-2 text-sm text-white rounded-md shadow-sm bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-            >
-              {loading ? "Loading" : "Logout"}
-            </button>
+            {user && (
+              <button
+                onClick={logout}
+                className="mx-12 py-2 text-sm text-white rounded-md shadow-sm bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+              >
+                {loading ? "Loading" : "Logout"}
+              </button>
+            )}
           </nav>
         </div>
       </div>

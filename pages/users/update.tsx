@@ -1,22 +1,34 @@
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Layout from "@components/Layout";
+import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface UpdateProfileForm {
   email?: string;
   phone?: string;
   name?: string;
+  avatar?: FileList;
 }
 
 const UpdateProfile = () => {
   const { user, mutateUser } = useUser({ routeType: "entered", redirectTo: "/enter" });
   const { register, handleSubmit, setValue } = useForm<UpdateProfileForm>();
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [updateProfile, { data: updateData, loading, error }] =
+    useMutation<UpdateProfileForm>(`/api/users/update`);
 
-  const onValid = (data: UpdateProfileForm) => {
-    console.log(data);
+  const onValid = async (data: UpdateProfileForm) => {
+    const { email, phone, name, avatar } = data;
+    setErrorMessage("");
+    if (!email && !phone) {
+      setErrorMessage("Email address OR Phone number is required.");
+    } else {
+      updateProfile(data);
+    }
   };
 
   useEffect(() => {
@@ -38,9 +50,15 @@ const UpdateProfile = () => {
             >
               Change
             </label>
-            <input type="file" accept="image/*" className="hidden" id="image" required />
+            <input
+              {...register("avatar")}
+              type="file"
+              accept="image/*"
+              id="image"
+              className="hidden"
+            />
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 flex flex-col">
             <Input
               registerProps={register("email")}
               type="email"
@@ -51,9 +69,12 @@ const UpdateProfile = () => {
               type="text"
               label={{ top: "Phone number", left: "+82" }}
             />
-            <Input registerProps={register("name")} type="text" label={{ top: "Name" }} />
+            {errorMessage && (
+              <span className="mx-auto text-sm text-orange-600">{errorMessage}</span>
+            )}
+            <Input registerProps={register("name")} type="text" label={{ top: "Name" }} required />
           </div>
-          <Button text="Update Profile" />
+          <Button text={loading ? "Loading" : "Update Profile"} />
         </form>
       </div>
     </Layout>
