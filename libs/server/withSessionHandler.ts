@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import withSession from "./withSession";
+import prisma from "./prismaClient";
+import withSession from "@libs/server/withSession";
 
 export default function withSessionHandler(
   handler: (req: NextApiRequest, res: NextApiResponse) => void,

@@ -35,9 +35,13 @@ const Enter = () => {
     setEnterMethod("phone");
   };
 
-  const onValid = (data: EnterForm) => enter(data);
+  const onValid = (data: EnterForm) => {
+    if (enterLoading) return;
+    enter(data);
+  };
 
   const onTokenValid = async (data: TokenForm) => {
+    if (confirmLoading) return;
     const { email, phone } = getValues();
     const { token } = data;
     await confirm({ email, phone, token });
@@ -45,15 +49,11 @@ const Enter = () => {
   };
 
   return (
-    <Layout title="Enter">
-      <div className="mt-20 px-5">
-        <h1 className="text-3xl font-bold text-center">Enter to Carrot</h1>
+    <Layout title="Enter to Carrot">
+      <div className="flex flex-col mt-20">
         {enterData?.ok ? (
           <>
-            <form
-              onSubmit={handleTokenSubmit(onTokenValid)}
-              className="flex flex-col mt-24 max-w-xl mx-auto"
-            >
+            <form onSubmit={handleTokenSubmit(onTokenValid)} className="flex flex-col mt-24">
               <Input
                 registerProps={tokenRegister("token")}
                 type="text"
@@ -67,7 +67,8 @@ const Enter = () => {
           </>
         ) : (
           <>
-            <div className="mt-16 grid grid-cols-2 justify-center max-w-md mx-auto">
+            <span className="mx-auto text-sm text-gray-400 mt-8">Enter using:</span>
+            <div className="mt-5 grid grid-cols-2 justify-center">
               <button
                 className={className(
                   "text-sm font-medium border-b p-3 focus:outline-none",
@@ -87,7 +88,7 @@ const Enter = () => {
                 Phone
               </button>
             </div>
-            <form onSubmit={handleSubmit(onValid)} className="flex flex-col mt-16 max-w-xl mx-auto">
+            <form onSubmit={handleSubmit(onValid)} className="flex flex-col mt-16">
               {enterMethod === "email" && (
                 <Input
                   type="email"

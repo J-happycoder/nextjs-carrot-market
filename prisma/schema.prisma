@@ -15,6 +15,7 @@ model User {
   phone  String? @unique
   name   String  @default("Anonymous")
   tokens Token[]
+  items  Item[]
 }
 
 model Token {
@@ -24,4 +25,15 @@ model Token {
   token  String
 
   @@unique(fields: [userId, token], name: "userToken")
+}
+
+model Item {
+  id          Int     @id @default(autoincrement())
+  owner       User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     Int
+  name        String
+  price       Int
+  description String
+  likes       Int     @default(0)
+  sold        Boolean @default(false)
 }
