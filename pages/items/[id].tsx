@@ -1,4 +1,5 @@
 import Layout from "@components/Layout";
+import { NextPage } from "next";
 
 interface Product {
   name: string;
@@ -6,7 +7,7 @@ interface Product {
   sold: boolean;
 }
 
-const Product = () => {
+const Product: NextPage = () => {
   const product = { name: "iPhone 13 Pro", likes: 1, sold: true };
   return (
     <Layout title="Product">

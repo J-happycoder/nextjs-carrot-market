@@ -5,16 +5,19 @@ import type { Item as DBItem } from "@prisma/client";
 import Item from "@components/Item";
 import Link from "next/link";
 import useUser from "@libs/client/useUser";
+import { useRouter } from "next/router";
 
 interface ItemData {
   items: DBItem[];
 }
 
 const Home: NextPage = () => {
+  const router = useRouter();
   const { data } = useSWR<ItemData>("/api/items");
-  const { user, mutateUser } = useUser({});
+  const { user, mutateUser } = useUser({ routeType: "entered", redirectTo: "/enter" });
+  const goUploadPage = () => router.push("/items/upload");
   return (
-    <Layout title="Home">
+    <Layout title="Home" home>
       <div>
         {data?.items ? (
           <div className="mt-16 flex flex-col mx-auto space-y-5 mb-10 px-5">
@@ -27,7 +30,10 @@ const Home: NextPage = () => {
         ) : null}
         <div className="fixed w-full max-w-lg mx-auto bottom-28">
           <div className="max-w-xl px-5 flex justify-end">
-            <button className="text-white bg-orange-500 hover:bg-orange-600 rounded-full cursor-pointer shadow-md p-3">
+            <button
+              onClick={goUploadPage}
+              className="text-white bg-orange-500 hover:bg-orange-600 rounded-full cursor-pointer shadow-md p-3"
+            >
               <svg
                 className="w-6 h-6"
                 fill="none"

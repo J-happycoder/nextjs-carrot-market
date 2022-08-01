@@ -6,6 +6,7 @@ import useUser from "@libs/client/useUser";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Button from "@components/Button";
+import { NextPage } from "next";
 
 interface UploadForm {
   thumbnail: FileList;
@@ -14,7 +15,7 @@ interface UploadForm {
   description: string;
 }
 
-const Upload = () => {
+const Upload: NextPage = () => {
   const router = useRouter();
   const { user } = useUser({ routeType: "entered" });
   const { register, handleSubmit } = useForm<UploadForm>();
@@ -33,20 +34,24 @@ const Upload = () => {
       <form onSubmit={handleSubmit(onValid)} className="flex flex-col mt-20">
         <div className="space-y-2">
           <div className="flex items-center justify-start space-x-10">
-            <label
-              htmlFor="image"
-              className="text-sm text-gray-400 px-3 py-1.5 cursor-pointer bg-white hover:bg-gray-50 border border-gray-300 rounded-md"
-            >
-              Change
+            <label className="text-gray-700 cursor-pointer w-full flex space-x-1 items-center justify-center py-12 border-2 border-dashed border-gray-300 rounded-md">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+              <span className="text-sm font-medium">Drop an image or click to browse.</span>
+              <input {...register("thumbnail")} type="file" accept="image/*" className="hidden" />
             </label>
-            <div className=""></div>
-            <input
-              {...register("thumbnail")}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              id="image"
-            />
           </div>
           <Input
             registerProps={register("name")}

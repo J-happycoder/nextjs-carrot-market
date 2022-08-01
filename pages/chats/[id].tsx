@@ -1,8 +1,8 @@
-import { text } from "stream/consumers";
 import Layout from "@components/Layout";
 import className from "@libs/client/createClassName";
+import { NextPage } from "next";
 
-const Chat = () => {
+const Chat: NextPage = () => {
   const messages = [
     {
       from: { name: "Kyle" },

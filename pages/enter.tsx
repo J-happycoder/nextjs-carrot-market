@@ -6,6 +6,7 @@ import Input from "@components/Input";
 import Button from "@components/Button";
 import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
+import { NextPage } from "next";
 
 interface EnterForm {
   email?: string;
@@ -16,7 +17,7 @@ interface TokenForm {
   token: string;
 }
 
-const Enter = () => {
+const Enter: NextPage = () => {
   const { register, handleSubmit, reset, getValues } = useForm<EnterForm>();
   const { register: tokenRegister, handleSubmit: handleTokenSubmit } = useForm<TokenForm>();
   const [enterMethod, setEnterMethod] = useState<"email" | "phone">("email");
@@ -49,8 +50,9 @@ const Enter = () => {
   };
 
   return (
-    <Layout title="Enter to Carrot">
+    <Layout title="Enter to Carrot" enter>
       <div className="flex flex-col mt-20">
+        <h1 className="text-3xl font-bold text-center">Enter to Carrot</h1>
         {enterData?.ok ? (
           <>
             <form onSubmit={handleTokenSubmit(onTokenValid)} className="flex flex-col mt-24">
@@ -67,8 +69,8 @@ const Enter = () => {
           </>
         ) : (
           <>
-            <span className="mx-auto text-sm text-gray-400 mt-8">Enter using:</span>
-            <div className="mt-5 grid grid-cols-2 justify-center">
+            <span className="mx-auto text-sm text-gray-400 mt-16">Enter using:</span>
+            <div className="grid grid-cols-2 justify-center">
               <button
                 className={className(
                   "text-sm font-medium border-b p-3 focus:outline-none",

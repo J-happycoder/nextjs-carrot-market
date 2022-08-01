@@ -1,6 +1,7 @@
 import Layout from "@components/Layout";
+import { NextPage } from "next";
 
-const Neighborhood = () => {
+const Neighborhood: NextPage = () => {
   return <Layout title="Neigborhood"></Layout>;
 };
 
