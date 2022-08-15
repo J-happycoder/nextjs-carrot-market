@@ -8,15 +8,16 @@ interface layoutProps {
   children?: ReactElement | ReactElement[];
   home?: boolean;
   enter?: boolean;
+  before?: string;
 }
 
-const Layout = ({ title, children, home, enter }: layoutProps) => {
+const Layout = ({ title, children, home, enter, before }: layoutProps) => {
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      {!enter && <Header title={title} home={home} />}
+      {!enter && <Header title={title} home={home} before={before ? before : "/"} />}
       <div className="max-w-lg mx-auto flex flex-col">{children}</div>
     </>
   );

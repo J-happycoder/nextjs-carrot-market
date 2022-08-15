@@ -29,7 +29,7 @@ const UpdateProfile = () => {
 
   useEffect(() => {
     if (data?.ok && user?.id) {
-      router.push(`/users/${user.id}`);
+      router.push("/users/me");
     }
   }, [data]);
 
@@ -46,7 +46,7 @@ const UpdateProfile = () => {
   };
 
   return (
-    <Layout title="Update Profile">
+    <Layout title="Update Profile" before="/users/me">
       <form onSubmit={handleSubmit(onValid)} className="flex flex-col mt-24">
         <div className="space-y-3">
           <div className="flex items-center space-x-3">

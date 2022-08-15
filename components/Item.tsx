@@ -1,4 +1,5 @@
 import { Item } from "@prisma/client";
+import Link from "next/link";
 
 interface ItemProps {
   item: Item;
@@ -11,9 +12,9 @@ const Item = ({ item }: ItemProps) => {
         <div className="p-10 bg-gray-300 rounded-md"></div>
         <div className="ml-3 relative w-full">
           <div className="flex flex-col">
-            <a href="/products/1" className="text-sm">
-              {item.name}
-            </a>
+            <Link href={`/items/${item.id}`}>
+              <a className="text-sm">{item.name}</a>
+            </Link>
             <span className="text-sm text-gray-400">{item.description}</span>
           </div>
           <div className="flex absolute bottom-0 right-3 space-x-2">

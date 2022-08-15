@@ -3,7 +3,7 @@ import withSessionHandler from "@libs/server/withSessionHandler";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const uploadHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { name, price, description } = req.body;
+  const { name, price, description, id } = req.body;
   const { userId } = req.session;
   const item = await prisma.item.create({
     data: {
@@ -13,6 +13,7 @@ const uploadHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       owner: {
         connect: { id: userId },
       },
+      photoId: id,
     },
   });
   return res.status(200).json({ itemId: item.id });

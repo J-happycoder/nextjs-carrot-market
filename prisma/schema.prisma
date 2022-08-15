@@ -34,6 +34,8 @@ model Item {
   name        String
   price       Int
   description String
+  photoId     String
   likes       Int     @default(0)
+  views       Int     @default(0)
   sold        Boolean @default(false)
 }

@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const logoutHandler = (req: NextApiRequest, res: NextApiResponse) => {
   req.session.destroy();
-  return res.status(200).end();
+  return res.status(200).redirect("/enter");
 };
 
 export default withSessionHandler(logoutHandler, { method: "GET", routeType: "entered" });
