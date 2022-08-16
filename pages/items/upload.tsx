@@ -15,12 +15,16 @@ interface UploadForm {
   photos: FileList;
 }
 
+interface UploadResponse {
+  itemId: number;
+}
+
 const Upload: NextPage = () => {
   useUser({ routeType: "entered", redirectTo: "/enter" });
   const router = useRouter();
   const { register, handleSubmit, watch } = useForm<UploadForm>();
-  const [uploadItem, { data: uploadData, loading }] = useMutation("/api/items/upload");
-  const [photoUploading, setPhotoUploading] = useState<boolean>(false);
+  const [uploadItem, { data: uploadData, loading }] =
+    useMutation<UploadResponse>("/api/items/upload");
   const [previewUrl, setPreviewUrl] = useState<string>("");
 
   useEffect(() => {
@@ -29,10 +33,10 @@ const Upload: NextPage = () => {
     }
   }, [uploadData]);
 
-  const uploadPhoto = async () => {
+  const uploadPhoto = async (photo: File) => {
     const { id, uploadURL } = await (await fetch("/api/upload-url")).json();
     const form = new FormData();
-    form.append("file", photos[0]);
+    form.append("file", photo);
     await fetch(uploadURL, { method: "POST", body: form });
     return id;
   };
@@ -41,10 +45,10 @@ const Upload: NextPage = () => {
     if (loading) return;
     const { name, price, description, photos } = data;
     if (photos && photos.length > 0) {
-      setPhotoUploading(true);
-      const id = await uploadPhoto();
-      setPhotoUploading(false);
-      uploadItem({ name, price, description, id });
+      uploadItem({
+        data: { name, price, description },
+        image: photos[0],
+      });
     }
   };
 
@@ -109,7 +113,7 @@ const Upload: NextPage = () => {
               />
             </div>
           </div>
-          <Button text={loading || photoUploading ? "Loading" : "Upload"} />
+          <Button text={loading ? "Loading" : "Upload"} />
         </form>
       </div>
     </Layout>

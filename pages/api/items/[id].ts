@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const itemHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
-  if (!id || isNaN(+id)) {
+  if (!id) {
     return res.status(400).end();
   }
   const item = await prisma.item.findUnique({ where: { id: +id } });

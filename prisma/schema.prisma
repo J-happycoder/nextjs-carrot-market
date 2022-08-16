@@ -10,12 +10,13 @@ datasource db {
 }
 
 model User {
-  id     Int     @id @default(autoincrement())
-  email  String? @unique
-  phone  String? @unique
-  name   String  @default("Anonymous")
-  tokens Token[]
-  items  Item[]
+  id       Int     @id @default(autoincrement())
+  email    String? @unique
+  phone    String? @unique
+  name     String  @default("Anonymous")
+  avatarId String?
+  tokens   Token[]
+  items    Item[]
 }
 
 model Token {

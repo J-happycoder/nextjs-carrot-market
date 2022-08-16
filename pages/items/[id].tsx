@@ -5,11 +5,12 @@ import useItem from "@libs/client/useItem";
 import type { Item } from "@prisma/client";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
 const Item: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = useItem({ id, multiple: false });
+  const { data } = useSWR(id ? `/api/items/${id}` : null);
   return (
     <Layout title={data?.item ? data.item.name : "Item"}>
       <div className="max-w-2xl h-64 w-full bg-gray-200 mx-auto mt-16 rounded-md"></div>

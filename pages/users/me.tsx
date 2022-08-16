@@ -8,7 +8,14 @@ const MyProfile = () => {
     <Layout title="My Profile">
       <div className="p-5">
         <div className="flex items-center space-x-3 relative">
-          <div className="w-16 h-16 rounded-full bg-gray-300"></div>
+          {user?.avatarId ? (
+            <img
+              src={`https://imagedelivery.net/NBXXy2GWfraNvFGhspc2LQ/${user?.avatarId}/public`}
+              className="w-16 h-16 rounded-full"
+            />
+          ) : (
+            <div className="w-16 h-16 rounded-full bg-gray-300"></div>
+          )}
           <div className="flex flex-col">
             <span className="text-sm font-bold">{user?.name}</span>
             {user?.email ? (

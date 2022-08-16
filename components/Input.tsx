@@ -24,8 +24,8 @@ const Input = ({
   onButtonClick,
 }: InputProps) => {
   return (
-    <div className="space-y-1">
-      {label?.top && <label className="text-sm text-gray-500">{label.top}</label>}
+    <div className="space-y-1 mt-2">
+      {label?.top && <label className="text-sm font-medium text-gray-500">{label.top}</label>}
       <div className="flex">
         {label?.left && (
           <span className="flex items-center text-sm text-gray-400 px-3 border border-gray-300 border-r-0 rounded-l-md bg-gray-50">

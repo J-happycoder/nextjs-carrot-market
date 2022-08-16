@@ -17,14 +17,18 @@ interface TokenForm {
   token: string;
 }
 
+interface EnterResponse {
+  ok: boolean;
+}
+
 const Enter: NextPage = () => {
   const { register, handleSubmit, reset, getValues } = useForm<EnterForm>();
   const { register: tokenRegister, handleSubmit: handleTokenSubmit } = useForm<TokenForm>();
   const [enterMethod, setEnterMethod] = useState<"email" | "phone">("email");
   const [enter, { data: enterData, loading: enterLoading, error: enterError }] =
-    useMutation<EnterForm>("/api/users/enter");
+    useMutation<EnterResponse>("/api/users/enter");
   const [confirm, { data: confirmData, loading: confirmLoading, error: confirmError }] =
-    useMutation<TokenForm & EnterForm>("/api/users/confirm");
+    useMutation<EnterResponse>("/api/users/confirm");
   const { user, mutateUser } = useUser({ routeType: "public", redirectTo: "/" });
 
   const handleEmailButtonClick = () => {
@@ -38,14 +42,16 @@ const Enter: NextPage = () => {
 
   const onValid = (data: EnterForm) => {
     if (enterLoading) return;
-    enter(data);
+    enter({ data });
   };
 
   const onTokenValid = async (data: TokenForm) => {
     if (confirmLoading) return;
     const { email, phone } = getValues();
     const { token } = data;
-    await confirm({ email, phone, token });
+    await confirm({
+      data: { email, phone, token },
+    });
     mutateUser();
   };
 

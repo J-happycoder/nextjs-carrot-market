@@ -8,7 +8,6 @@ interface HeaderProps {
 }
 
 const Header = ({ home, title, before }: HeaderProps) => {
-  const router = useRouter();
   return (
     <div className="bg-white max-w-lg w-full z-10 grid grid-cols-3 items-center mx-auto py-2 border-b border-gray-300 sticky top-0">
       <div className="ml-2">
