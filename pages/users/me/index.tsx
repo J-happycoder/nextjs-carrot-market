@@ -25,7 +25,72 @@ const MyProfile = () => {
             )}
           </div>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 space-y-4">
+          <div>
+            <div className="relative flex justify-center mb-1">
+              <span className="text-sm font-medium bg-white z-10 px-2">Activities</span>
+              <div className="border-b border-gray-200 absolute top-2.5 w-full"></div>
+            </div>
+            <ul>
+              <Link href="me/purchase-history">
+                <li className="px-4 py-3 border-b border-gray-200 hover:bg-gray-50 text-gray-500 flex items-center justify-between cursor-pointer">
+                  <span className="text-sm">Purchase history</span>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </li>
+              </Link>
+              <Link href="me/favorites">
+                <li className="px-4 py-3 border-b border-gray-200 hover:bg-gray-50 text-gray-500 flex items-center justify-between cursor-pointer">
+                  <span className="text-sm">Favorites</span>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </li>
+              </Link>
+              <Link href="me/items">
+                <li className="px-4 py-3 border-b border-gray-200 hover:bg-gray-50 text-gray-500 flex items-center justify-between cursor-pointer">
+                  <span className="text-sm">My items</span>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </li>
+              </Link>
+            </ul>
+          </div>
           <div>
             <div className="relative flex justify-center mb-1">
               <span className="text-sm font-medium bg-white z-10 px-2">Settings</span>
