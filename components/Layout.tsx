@@ -4,7 +4,7 @@ import Header from "@components/Header";
 import useUser from "@libs/client/useUser";
 
 interface layoutProps {
-  title: string;
+  title: string | undefined;
   children?: ReactElement | ReactElement[];
   home?: boolean;
   enter?: boolean;

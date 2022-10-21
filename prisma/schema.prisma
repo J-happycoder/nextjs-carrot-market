@@ -17,6 +17,7 @@ model User {
   avatarId String?
   tokens   Token[]
   items    Item[]
+  chats    Chat[]
 }
 
 model Token {
@@ -39,4 +40,21 @@ model Item {
   likes       Int     @default(0)
   views       Int     @default(0)
   sold        Boolean @default(false)
+  chats       Chat[]
+}
+
+model Message {
+  id       Int     @id @default(autoincrement())
+  chat     Chat    @relation(fields: [chatId], references: [id])
+  chatId   Int
+  toSeller Boolean @default(true)
+}
+
+model Chat {
+  id         Int       @id @default(autoincrement())
+  customer   User      @relation(fields: [customerId], references: [id])
+  customerId Int
+  item       Item      @relation(fields: [itemId], references: [id])
+  itemId     Int
+  messages   Message[]
 }

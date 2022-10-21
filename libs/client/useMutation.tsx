@@ -5,13 +5,24 @@ interface MutationData {
   image?: File | undefined;
 }
 
-export default function useMutation<Response>(
-  url: string
+interface MutationResponse {
+  data: Response | undefined;
+  loading: boolean;
+  error: any;
+}
+
+export default function useMutation<Data>(
+  url: string | null,
+  method?: string
 ): [
   (mutationData: MutationData) => Promise<any>,
-  { data: Response | undefined; loading: boolean; error: any }
+  {
+    data: Data | undefined;
+    loading: boolean;
+    error: any;
+  }
 ] {
-  const [data, setData] = useState<any>(undefined);
+  const [data, setData] = useState<Data>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(undefined);
   const uploadImage = async (image: File) => {
@@ -22,6 +33,7 @@ export default function useMutation<Response>(
     return id;
   };
   const mutate = async ({ data, image }: MutationData) => {
+    if (!url) return;
     setLoading(true);
     let body = data;
     if (image) {
@@ -31,7 +43,7 @@ export default function useMutation<Response>(
     setData(
       await (
         await fetch(url, {
-          method: "POST",
+          method: method || "POST",
           body: JSON.stringify(body),
           headers: {
             "Content-Type": "application/json",

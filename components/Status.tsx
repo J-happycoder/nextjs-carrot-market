@@ -1,6 +1,6 @@
 interface StatusProps {
-  likes: number;
-  views: number;
+  likes: number | undefined;
+  views: number | undefined;
 }
 
 const Status = ({ likes, views }: StatusProps) => {

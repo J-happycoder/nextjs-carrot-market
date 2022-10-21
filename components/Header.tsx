@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 interface HeaderProps {
   home?: boolean;
-  title: string;
+  title: string | undefined;
   before: string;
 }
 

@@ -5,7 +5,7 @@ import prisma from "@libs/server/prismaClient";
 export default function withSessionHandler(
   handler: (req: NextApiRequest, res: NextApiResponse) => void,
   options: {
-    method: "GET" | "POST" | "DELETE";
+    method: "GET" | "POST" | "DELETE" | "PATCH";
     routeType?: "public" | "entered";
   }
 ) {
