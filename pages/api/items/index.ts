@@ -3,7 +3,7 @@ import withSessionHandler from "@libs/server/withSessionHandler";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const getItemsHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const items = await prisma.item.findMany({});
+  const items = await prisma.item.findMany({ include: { likes: true } });
   return res.status(200).json({ items });
 };
 

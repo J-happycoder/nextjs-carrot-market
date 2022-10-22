@@ -10,14 +10,15 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String? @unique
-  phone    String? @unique
-  name     String  @default("Anonymous")
-  avatarId String?
-  tokens   Token[]
-  items    Item[]
-  chats    Chat[]
+  id        Int                @id @default(autoincrement())
+  email     String?            @unique
+  phone     String?            @unique
+  name      String             @default("Anonymous")
+  avatarId  String?
+  tokens    Token[]
+  chats     Chat[]
+  items     Item[]
+  favorites FavoritesOnItems[]
 }
 
 model Token {
@@ -30,17 +31,27 @@ model Token {
 }
 
 model Item {
-  id          Int     @id @default(autoincrement())
-  owner       User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  id          Int                @id @default(autoincrement())
+  owner       User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     Int
   name        String
-  price       Int
+  price       String
   description String
   photoId     String
-  likes       Int     @default(0)
-  views       Int     @default(0)
-  sold        Boolean @default(false)
+  views       Int                @default(0)
+  sold        Boolean            @default(false)
   chats       Chat[]
+  userId      Int?
+  likes       FavoritesOnItems[]
+}
+
+model FavoritesOnItems {
+  item   Item @relation(fields: [itemId], references: [id])
+  itemId Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@id([itemId, userId], name: "id")
 }
 
 model Message {

@@ -19,7 +19,7 @@ const returnOrCreateUser = async (email: string | undefined, phone: string | und
 
 const returnOrCreateToken = async (userId: number) => {
   const token = Math.floor(100000 + Math.random() * 899999) + "";
-  const dbToken = await prisma.token.upsert({
+  await prisma.token.upsert({
     where: {
       userToken: {
         token,
@@ -34,7 +34,7 @@ const returnOrCreateToken = async (userId: number) => {
     },
     update: {},
   });
-  return dbToken.token;
+  return token;
 };
 
 const sendEmail = async (token: string, email: string) => {

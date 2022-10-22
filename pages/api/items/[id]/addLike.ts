@@ -3,17 +3,25 @@ import withSessionHandler from "@libs/server/withSessionHandler";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const addLikes = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { userId } = req.session;
+  if (!userId) return res.status(401).end();
   const { id } = req.query;
-  if (!id) return res.status(400).end();
+  if (!id) return res.status(404).end();
   await prisma.item.update({
     where: { id: +id },
     data: {
       likes: {
-        increment: 1,
+        connectOrCreate: {
+          create: { userId },
+          where: { id: { itemId: +id, userId } },
+        },
       },
     },
   });
   return res.status(200).json({ ok: true });
 };
 
-export default withSessionHandler(addLikes, { method: "PATCH", routeType: "entered" });
+export default withSessionHandler(addLikes, {
+  method: "PATCH",
+  routeType: "entered",
+});

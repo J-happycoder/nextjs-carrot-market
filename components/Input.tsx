@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import type { UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
+import type { UseFormRegisterReturn } from "react-hook-form";
 import className from "@libs/client/createClassName";
 
 interface InputProps {
@@ -8,9 +8,9 @@ interface InputProps {
   buttonText?: string;
   submitText?: string;
   type: "text" | "email" | "number" | "password";
+  isBox?: boolean;
   required?: boolean;
   registerProps?: UseFormRegisterReturn;
-  onButtonClick?: MouseEventHandler<HTMLSpanElement>;
 }
 
 const Input = ({
@@ -19,30 +19,40 @@ const Input = ({
   buttonText,
   submitText,
   type,
+  isBox,
   required,
   registerProps,
-  onButtonClick,
 }: InputProps) => {
   return (
     <div className="space-y-1 mt-2">
-      {label?.top && <label className="text-sm font-medium text-gray-500">{label.top}</label>}
+      {label?.top && (
+        <label className="text-sm font-medium text-gray-500">{label.top}</label>
+      )}
       <div className="flex">
         {label?.left && (
           <span className="flex items-center text-sm text-gray-400 px-3 border border-gray-300 border-r-0 rounded-l-md bg-gray-50">
             {label.left}
           </span>
         )}
-        <input
-          className={className(
-            "appearance-none w-full border border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 text-sm rounded-md z-10 placeholder-gray-400",
-            label?.left ? "rounded-l-none" : "",
-            label?.right || buttonText || submitText ? "rounded-r-none" : ""
-          )}
-          placeholder={placeholder}
-          type={type}
-          required={required}
-          {...registerProps}
-        />
+        {isBox ? (
+          <textarea
+            {...registerProps}
+            className="h-32 border border-gray-300 rounded-md appearance-none shadow-sm focus:border-orange-500 focus:ring-orange-500 text-sm z-10"
+          />
+        ) : (
+          <input
+            className={className(
+              "appearance-none w-full border border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 text-sm rounded-md z-10 placeholder-gray-400",
+              label?.left ? "rounded-l-none" : "",
+              label?.right || buttonText || submitText ? "rounded-r-none" : ""
+            )}
+            placeholder={placeholder}
+            type={type}
+            required={required}
+            {...registerProps}
+          />
+        )}
+
         {label?.right && (
           <span className="flex items-center text-sm text-gray-400 px-3 border border-gray-300 border-l-0 rounded-r-md bg-gray-50">
             {label.right}
@@ -55,14 +65,6 @@ const Input = ({
           >
             {submitText}
           </button>
-        )}
-        {buttonText && (
-          <span
-            onClick={onButtonClick}
-            className="flex items-center px-3 text-sm text-gray-400 border border-l-0 border-gray-300 rounded-r-md hover:bg-gray-50 cursor-pointer"
-          >
-            {buttonText}
-          </span>
         )}
       </div>
     </div>

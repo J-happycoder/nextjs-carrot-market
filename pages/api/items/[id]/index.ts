@@ -7,8 +7,12 @@ const itemHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!id) {
     return res.status(400).end();
   }
-  const item = await prisma.item.findUnique({ where: { id: +id } });
-  return res.status(200).json({ item });
+  const item = await prisma.item.findUnique({
+    where: { id: +id },
+    include: { likes: true },
+  });
+  console.log(item);
+  return res.status(200).json(item);
 };
 
 export default withSessionHandler(itemHandler, { method: "GET" });
