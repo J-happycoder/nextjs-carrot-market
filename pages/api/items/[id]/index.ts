@@ -11,7 +11,6 @@ const itemHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     where: { id: +id },
     include: { likes: true },
   });
-  console.log(item);
   return res.status(200).json(item);
 };
 

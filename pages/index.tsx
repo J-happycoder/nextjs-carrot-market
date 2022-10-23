@@ -23,12 +23,14 @@ const Home: NextPage = () => {
           <div className="mt-16 flex flex-col mx-auto space-y-3 mb-10 px-5">
             {data.items.map((item) => (
               <div key={item.id}>
-                <div className="flex">
+                <div className="flex relative">
+                  {/* <div className="w-20 h-20 bg-gray-400"> */}
                   <img
                     src={`https://imagedelivery.net/NBXXy2GWfraNvFGhspc2LQ/${item.photoId}/public`}
                     className="w-20 h-20 object-cover bg-gray-300 rounded-md"
                   />
-                  <div className="ml-3 flex flex-col w-full relative">
+                  {/* </div> */}
+                  <div className="ml-3 flex flex-col">
                     <Link href={`/items/${item.id}`}>
                       <a className="text-sm">{item.name}</a>
                     </Link>
@@ -36,15 +38,15 @@ const Home: NextPage = () => {
                       {item.description}
                     </span>
                     <span className="text-md font-bold">${item.price}</span>
-                    <div className="flex absolute right-0 bottom-0">
-                      <div className="text-sm flex items-center space-x-1 mr-2 text-gray-500">
-                        <span>
-                          {item.likes.length}{" "}
-                          {item.likes.length === 1 ? "like" : "likes"}
-                        </span>
-                      </div>
-                      {item.sold && <Sold />}
+                  </div>
+                  <div className="flex absolute right-0 bottom-0">
+                    <div className="text-sm flex items-center space-x-1 mr-2 text-gray-500">
+                      <span>
+                        {item.likes.length}{" "}
+                        {item.likes.length === 1 ? "like" : "likes"}
+                      </span>
                     </div>
+                    {item.sold && <Sold />}
                   </div>
                 </div>
                 <div className="mt-3 border-b border-gray-300"></div>

@@ -1,12 +1,13 @@
 import Layout from "@components/Layout";
 import Sold from "@components/Sold";
 import Status from "@components/Status";
+import useLike from "@libs/client/useLike";
 import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import type { FavoritesOnItems, Item } from "@prisma/client";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 interface ChatData {
@@ -33,7 +34,7 @@ const GrayHeart = () => (
 
 const OrangeHeart = () => (
   <svg
-    className="w-5 h-5 text-orange-500 hidden group-active:block"
+    className="w-5 h-5 text-orange-500"
     fill="currentColor"
     viewBox="0 0 20 20"
     xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +48,7 @@ const OrangeHeart = () => (
 );
 
 const Item: NextPage = () => {
+  const [liked, setLiked] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
   const { data: item, mutate } = useSWR<Item & { likes: FavoritesOnItems[] }>(
@@ -54,19 +56,26 @@ const Item: NextPage = () => {
   );
   const [createOrFindChat, { data: chatData }] =
     useMutation<ChatData>("/api/chats/new");
-  const [addLike, { data: likeData }] = useMutation(
-    id ? `/api/items/${id}/addLike` : null,
-    "PATCH"
-  );
   const { user } = useUser({ routeType: "entered", redirectTo: "/enter" });
+  const [addLike, removeLike] = useLike(id ? +id : null);
+
+  useEffect(() => {
+    const alreadyLiked = item?.likes.find((like) => like.userId === user?.id);
+    if (alreadyLiked) {
+      setLiked(true);
+    }
+  }, [item, user]);
+
   useEffect(() => {
     if (chatData?.ok) {
       router.push(`/chats/${chatData.id}`);
     }
   }, [chatData]);
 
-  const handleLikeClick = async () => {
-    await addLike({});
+  const toggleLike = async () => {
+    setLiked((previous) => !previous);
+    if (liked) await removeLike();
+    else await addLike();
     mutate();
   };
   const onChatClick = async () => {
@@ -104,15 +113,10 @@ const Item: NextPage = () => {
           Talk to Seller
         </button>
         <button
-          onClick={handleLikeClick}
-          className="px-3 bg-white hover:bg-gray-50 border border-gray-300 rounded-md focus:outline-none group"
+          onClick={toggleLike}
+          className="px-3 bg-white hover:bg-gray-50 border rounded-md focus:outline-none border-gray-300"
         >
-          <div className="group-active:hidden">
-            <GrayHeart />
-          </div>
-          <div className="group-active:block">
-            <OrangeHeart />
-          </div>
+          {liked ? <OrangeHeart /> : <GrayHeart />}
         </button>
       </div>
       <div className="w-full mt-5">

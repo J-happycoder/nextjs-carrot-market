@@ -8,7 +8,7 @@ const uploadHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const item = await prisma.item.create({
     data: {
       name,
-      price: +price,
+      price,
       description,
       owner: {
         connect: { id: userId },
@@ -19,4 +19,7 @@ const uploadHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   return res.status(200).json({ itemId: item.id });
 };
 
-export default withSessionHandler(uploadHandler, { method: "POST", routeType: "entered" });
+export default withSessionHandler(uploadHandler, {
+  method: "POST",
+  routeType: "entered",
+});

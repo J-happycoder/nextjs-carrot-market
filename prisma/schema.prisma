@@ -52,6 +52,7 @@ model FavoritesOnItems {
   userId Int
 
   @@id([itemId, userId], name: "id")
+  @@unique([itemId, userId], name: "unique")
 }
 
 model Message {
